@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/CalendarClient/bin/Debug/netstandard2.0
+/CalendarClient/obj
+/CalendarClientTests/bin/Debug/netcoreapp2.2
+/CalendarClientTests/obj
