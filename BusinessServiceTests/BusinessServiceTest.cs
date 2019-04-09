@@ -23,7 +23,7 @@ namespace BusinessServiceTests
         }
 
         [Fact]
-        public async void GetWeek()
+        public async void GetPeriod()
         {
             Mock<IMemberClient> mockMemberClient = new Mock<IMemberClient>();
             Mock<ICalendarClient> mockCalendarClient = new Mock<ICalendarClient>();
@@ -57,7 +57,7 @@ namespace BusinessServiceTests
             var service = new DefaultBusinessService(mockMemberClient.Object, mockCalendarClient.Object);
             Assert.NotNull(service);
 
-            var result = await service.GetWeek(DateTime.Now);
+            var result = await service.GetItemsForPeriod(DateTime.Now, DateTime.Now);
             Assert.NotNull(result);
             Assert.Single(result.BusinessItems);
             Assert.Single(result.BusinessItems[0].ApplicableMembers);

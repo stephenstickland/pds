@@ -5,18 +5,18 @@ using System.Text;
 
 namespace BusinessService.Domain
 {
-    public class Week
+    public class Period
     {
-        public DateTime WeekStart { get; set; }
+        public DateTime PeriodStart { get; set; }
 
-        public DateTime WeekEnd { get; set; }
+        public DateTime PeriodEnd { get; set; }
 
         public List<BusinessItem> BusinessItems { get; set; } = new List<BusinessItem>();
 
-        public Week(DateTime weekStart, DateTime weekEnd)
+        public Period(DateTime periodStart, DateTime periodEnd)
         {
-            WeekStart = weekStart;
-            WeekEnd = weekEnd;
+            PeriodStart = periodStart;
+            PeriodEnd = periodEnd;
         }
     }
 }

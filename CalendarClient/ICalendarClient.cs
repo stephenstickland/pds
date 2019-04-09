@@ -8,5 +8,7 @@ namespace CalendarClient
     public interface ICalendarClient
     {
         Task<IList<Event>> GetEvents(DateTime startDate, DateTime endDate);
+
+        Task<Event> GetEvent(int id);
     }
 }

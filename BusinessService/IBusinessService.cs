@@ -8,6 +8,8 @@ namespace BusinessService
 {
     public interface IBusinessService
     {
-        Task<Week> GetWeek(DateTime startDate);
+        Task<Period> GetItemsForPeriod(DateTime startDate, DateTime endDate);
+
+        Task<BusinessItem> GetItem(int id);
     }
 }

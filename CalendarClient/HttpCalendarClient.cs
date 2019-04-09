@@ -17,11 +17,30 @@ namespace CalendarClient
 
         private string SHORT_DATE_FORMAT = "yyyy-MM-dd";
 
-        private HttpClient _http;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public HttpCalendarClient(HttpClient http)
+        public HttpCalendarClient(IHttpClientFactory httpClientFactory)
         {
-            _http = http;
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task<Event> GetEvent(int id)
+        {
+            NameValueCollection query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            IFormatProvider culture = new CultureInfo(CULTURE, true);
+
+            query["house"] = House.Commons;
+            query["eventId"] = id.ToString();
+
+            string queryString = query.ToString();
+            string url = CALENDAR_URL + "?" + queryString;
+
+            string responseXml = await _httpClientFactory.CreateClient().GetStringAsync(url);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Event>), new XmlRootAttribute("ArrayOfEvent"));
+            StringReader stringReader = new StringReader(responseXml);
+            List<Event> eventList = (List<Event>)serializer.Deserialize(stringReader);
+
+            return eventList[0];
         }
 
         public async Task<IList<Event>> GetEvents(DateTime startDate, DateTime endDate)
@@ -36,7 +55,7 @@ namespace CalendarClient
             string queryString = query.ToString();
             string url = CALENDAR_URL + "?" + queryString;
 
-            string responseXml = await _http.GetStringAsync(url);
+            string responseXml = await _httpClientFactory.CreateClient().GetStringAsync(url);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Event>), new XmlRootAttribute("ArrayOfEvent"));
             StringReader stringReader = new StringReader(responseXml);
             List<Event> eventList = (List<Event>)serializer.Deserialize(stringReader);

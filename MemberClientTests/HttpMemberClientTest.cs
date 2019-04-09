@@ -40,7 +40,14 @@ namespace MemberClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var client = new HttpMemberClient(httpClient);
+            // create the mock client factory mock
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+            // setup the method call
+            httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
+                                 .Returns(httpClient);
+
+            var client = new HttpMemberClient(httpClientFactoryMock.Object);
             Assert.NotNull(client);
         }
 
@@ -71,12 +78,18 @@ namespace MemberClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var subjectUnderTest = new HttpMemberClient(httpClient);
-            Assert.NotNull(subjectUnderTest);
+            // create the mock client factory mock
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+            // setup the method call
+            httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
+                                 .Returns(httpClient);
+
+            var client = new HttpMemberClient(httpClientFactoryMock.Object);
+            Assert.NotNull(client);
 
             // ACT
-            var result = await subjectUnderTest
-               .GetMember(579);
+            var result = await client.GetMember(579);
 
             // ASSERT
             Assert.NotNull(result);
@@ -123,11 +136,18 @@ namespace MemberClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var subjectUnderTest = new HttpMemberClient(httpClient);
-            Assert.NotNull(subjectUnderTest);
+            // create the mock client factory mock
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+            // setup the method call
+            httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
+                                 .Returns(httpClient);
+
+            var client = new HttpMemberClient(httpClientFactoryMock.Object);
+            Assert.NotNull(client);
 
             // ACT
-            var result = await subjectUnderTest
+            var result = await client
                .GetMembers();
 
             // ASSERT

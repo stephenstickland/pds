@@ -15,19 +15,16 @@ namespace MemberClient
 
         private string CULTURE = "en-GB";
 
-        private string SHORT_DATE_FORMAT = "yyyy-MM-dd";
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        private HttpClient _http;
-
-        public HttpMemberClient(HttpClient http)
+        public HttpMemberClient(IHttpClientFactory httpClientFactory)
         {
-            _http = http;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IList<Member>> GetMember(int id)
         {
             NameValueCollection query = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            IFormatProvider culture = new CultureInfo(CULTURE, true);
 
             query["house"] = House.Commons;
             query["id"] = id.ToString();
@@ -35,7 +32,7 @@ namespace MemberClient
             string queryString = query.ToString().Replace("&","|");
             string url = MEMBER_URL + queryString;
 
-            string responseXml = await _http.GetStringAsync(url);
+            string responseXml = await _httpClientFactory.CreateClient().GetStringAsync(url);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Member>), new XmlRootAttribute("Members"));
             StringReader stringReader = new StringReader(responseXml);
             List<Member> list = (List<Member>)serializer.Deserialize(stringReader);
@@ -46,14 +43,13 @@ namespace MemberClient
         public async Task<IList<Member>> GetMembers()
         {
             NameValueCollection query = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            IFormatProvider culture = new CultureInfo(CULTURE, true);
 
             query["house"] = House.Commons;
 
             string queryString = query.ToString().Replace("&", "|");
             string url = MEMBER_URL + queryString;
 
-            string responseXml = await _http.GetStringAsync(url);
+            string responseXml = await _httpClientFactory.CreateClient().GetStringAsync(url);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Member>), new XmlRootAttribute("Members"));
             StringReader stringReader = new StringReader(responseXml);
             List<Member> list = (List<Member>)serializer.Deserialize(stringReader);

@@ -39,7 +39,14 @@ namespace CalendarClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var client = new HttpCalendarClient(httpClient);
+            // create the mock client factory mock
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+            // setup the method call
+            httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
+                                 .Returns(httpClient);
+
+            var client = new HttpCalendarClient(httpClientFactoryMock.Object);
             Assert.NotNull(client);
         }
 
@@ -70,11 +77,18 @@ namespace CalendarClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var subjectUnderTest = new HttpCalendarClient(httpClient);
-            Assert.NotNull(subjectUnderTest);
+            // create the mock client factory mock
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
+            // setup the method call
+            httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
+                                 .Returns(httpClient);
+
+            var client = new HttpCalendarClient(httpClientFactoryMock.Object);
+            Assert.NotNull(client);
 
             // ACT
-            var result = await subjectUnderTest
+            var result = await client
                .GetEvents(DateTime.Now,DateTime.Now);
 
             // ASSERT

@@ -15,3 +15,7 @@
 /BusinessService/obj
 /BusinessServiceTests/bin/Debug/netcoreapp2.2
 /BusinessServiceTests/obj
+/BusinessApi/obj
+/BusinessApi/bin/Debug/netcoreapp2.2
+/BusinessApiTests/bin/Debug/netcoreapp2.2
+/BusinessApiTests/obj
