@@ -9,7 +9,7 @@ export function getBaseUrl() {
 }
 
 export function getApiUrl() {
-  return "https://localhost:6001/";
+  return environment.api;
 }
 
 const providers = [

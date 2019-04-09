@@ -3,25 +3,15 @@
 
 <p *ngIf="!period"><em>Loading ...</em></p>
 
-<table class='table table-striped' *ngIf="period">
-  <thead>
-    <tr>
-      <th>Day</th>
-      <th>Date</th>
-      <th>Start</th>
-      <th>End</th>
-      <th>Description</th>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of period.businessItems">
-      <td>{{ item.startDate | date:'EE' }}</td>
-      <td>{{ item.startDate | date:'dd/MM/yyyy' }}</td>
-      <td>{{ item.startTime == '' ? '-' : item.startTime }}</td>
-      <td>{{ item.endTime == '' ? '-' : item.endTime }}</td>
-      <td>{{ item.description }}</td>
-      <td>{{ item.category }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="" *ngIf="period">
+  <div class="row border" *ngFor="let item of period.businessItems">
+    <div class="col-xs-12 col-sm-2">{{ item.startDate | date:'dd/MM/yyyy' }}</div>
+    <div class="col-xs-12 col-sm-1">{{ item.startDate | date:'EE' }}</div>
+    <div class="col-xs-6 col-sm-1">{{ item.startTime == '' ? '-' : item.startTime }}</div>
+    <div class="col-xs-6 col-sm-1">{{ item.endTime == '' ? '-' : item.endTime }}</div>
+    <div class="col-xs-12 col-sm-3">{{ item.category }}</div>
+    <div class="col-xs-12 col-sm-4">{{ item.description }}</div>
+  </div>
+</div>
+
+

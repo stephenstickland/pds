@@ -103,6 +103,7 @@ namespace BusinessService
 
             period.BusinessItems = period.BusinessItems
                 .OrderBy(x => x.StartDate)
+                .ThenBy(x => x.StartTime)
                 .ThenBy(x => x.SortOrder)
                 .ToList();
 
