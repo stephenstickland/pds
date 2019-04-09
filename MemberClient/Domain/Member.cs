@@ -23,7 +23,7 @@ namespace MemberClient
 
         public string LayingMinisterName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public DateTime? DateOfDeath { get; set; }
 
@@ -35,7 +35,7 @@ namespace MemberClient
 
         public string MemberFrom { get; set; }
 
-        public DateTime HouseStartDate { get; set; }
+        public DateTime? HouseStartDate { get; set; }
 
         public DateTime? HouseEndDate { get; set; }
 

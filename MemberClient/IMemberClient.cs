@@ -8,5 +8,7 @@ namespace MemberClient
     public interface IMemberClient
     {
         Task<IList<Member>> GetMember(int id);
+
+        Task<IList<Member>> GetMembers();
     }
 }

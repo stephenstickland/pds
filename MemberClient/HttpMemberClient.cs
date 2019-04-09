@@ -11,7 +11,7 @@ namespace MemberClient
 {
     public class HttpMemberClient : IMemberClient
     {
-        private string CALENDAR_URL = "http://data.parliament.uk/membersdataplatform/services/mnis/members/query/";
+        private string MEMBER_URL = "http://data.parliament.uk/membersdataplatform/services/mnis/members/query/";
 
         private string CULTURE = "en-GB";
 
@@ -33,14 +33,32 @@ namespace MemberClient
             query["id"] = id.ToString();
 
             string queryString = query.ToString().Replace("&","|");
-            string url = CALENDAR_URL + queryString;
+            string url = MEMBER_URL + queryString;
 
             string responseXml = await _http.GetStringAsync(url);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Member>), new XmlRootAttribute("Members"));
             StringReader stringReader = new StringReader(responseXml);
-            List<Member> eventList = (List<Member>)serializer.Deserialize(stringReader);
+            List<Member> list = (List<Member>)serializer.Deserialize(stringReader);
 
-            return eventList;
+            return list;
+        }
+
+        public async Task<IList<Member>> GetMembers()
+        {
+            NameValueCollection query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            IFormatProvider culture = new CultureInfo(CULTURE, true);
+
+            query["house"] = House.Commons;
+
+            string queryString = query.ToString().Replace("&", "|");
+            string url = MEMBER_URL + queryString;
+
+            string responseXml = await _http.GetStringAsync(url);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Member>), new XmlRootAttribute("Members"));
+            StringReader stringReader = new StringReader(responseXml);
+            List<Member> list = (List<Member>)serializer.Deserialize(stringReader);
+
+            return list;
         }
     }
 }

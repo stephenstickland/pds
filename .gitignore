@@ -11,3 +11,7 @@
 /MemberClient/obj
 /MemberClientTests/bin/Debug/netcoreapp2.2
 /MemberClientTests/obj
+/BusinessService/bin/Debug/netstandard2.0
+/BusinessService/obj
+/BusinessServiceTests/bin/Debug/netcoreapp2.2
+/BusinessServiceTests/obj
