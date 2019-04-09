@@ -45,6 +45,7 @@ namespace BusinessService
 
             var businessItem = new BusinessItem()
             {
+                Id = evt.Id,
                 Description = evt.Description,
                 Category = evt.Category,
                 StartDate = evt.StartDate,
@@ -87,6 +88,7 @@ namespace BusinessService
 
                 period.BusinessItems.Add(new BusinessItem()
                 {
+                    Id = evt.Id,
                     Description = evt.Description,
                     Category = evt.Category,
                     StartDate = evt.StartDate,

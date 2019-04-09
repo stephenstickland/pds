@@ -1,24 +1,27 @@
-<h1>Weather forecast</h1>
+<h1>House of Commons</h1>
+<h2>Main Chamber</h2>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p *ngIf="!period"><em>Loading ...</em></p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table table-striped' *ngIf="forecasts">
+<table class='table table-striped' *ngIf="period">
   <thead>
     <tr>
+      <th>Day</th>
       <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Description</th>
+      <th>Category</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let item of period.businessItems">
+      <td>{{ item.startDate | date:'EE' }}</td>
+      <td>{{ item.startDate | date:'dd/MM/yyyy' }}</td>
+      <td>{{ item.startTime == '' ? '-' : item.startTime }}</td>
+      <td>{{ item.endTime == '' ? '-' : item.endTime }}</td>
+      <td>{{ item.description }}</td>
+      <td>{{ item.category }}</td>
     </tr>
   </tbody>
 </table>

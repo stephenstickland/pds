@@ -7,12 +7,18 @@ namespace MemberClient
 {
     public class Member
     {
+        [XmlAttribute]
         public int Member_Id { get; set; }
 
+        [XmlAttribute]
         public int Dods_Id { get; set; }
 
+        [XmlAttribute]
         public int Pims_Id { get; set; }
 
+        // WARNING: Member Órfhlaith Begley has no clerk id! (ignoring it for now)
+        // ERROR: XmlAttribute/XmlText cannot be used to encode complex types
+        [XmlIgnore]
         public int Clerks_Id { get; set; }
 
         public string DisplayAs { get; set; }
