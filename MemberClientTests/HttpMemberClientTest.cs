@@ -1,4 +1,4 @@
-using CalendarClient;
+using MemberClient;
 using Moq;
 using Moq.Protected;
 using System;
@@ -8,10 +8,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CalendarClientTests
+namespace MemberClientTests
 {
-    public class HttpCalendarClientTest
+    public class HttpMemberClientTest
     {
+        
         [Fact]
         public void Construction()
         {
@@ -29,7 +30,7 @@ namespace CalendarClientTests
                .ReturnsAsync(new HttpResponseMessage()
                {
                    StatusCode = HttpStatusCode.OK,
-                   Content = new StringContent(ResponseXml.CalendarResponse),
+                   Content = new StringContent(ResponseXml.MemberResponse),
                })
                .Verifiable();
 
@@ -39,12 +40,12 @@ namespace CalendarClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var client = new HttpCalendarClient(httpClient);
+            var client = new HttpMemberClient(httpClient);
             Assert.NotNull(client);
         }
 
         [Fact]
-        public async void GetEvents()
+        public async void GetMember()
         {
             // ARRANGE
             var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -60,7 +61,7 @@ namespace CalendarClientTests
                .ReturnsAsync(new HttpResponseMessage()
                {
                    StatusCode = HttpStatusCode.OK,
-                   Content = new StringContent(ResponseXml.CalendarResponse),
+                   Content = new StringContent(ResponseXml.MemberResponse),
                })
                .Verifiable();
 
@@ -70,19 +71,19 @@ namespace CalendarClientTests
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var subjectUnderTest = new HttpCalendarClient(httpClient);
+            var subjectUnderTest = new HttpMemberClient(httpClient);
             Assert.NotNull(subjectUnderTest);
 
             // ACT
             var result = await subjectUnderTest
-               .GetEvents(DateTime.Now,DateTime.Now);
+               .GetMember(579);
 
             // ASSERT
             Assert.NotNull(result);
-            Assert.Equal(128, result.Count);
+            Assert.Equal(1, result.Count);
 
             // also check the 'http' call was like we expected it
-            var expectedUri = new Uri("http://service.calendar.parliament.uk/calendar/events/list.xml?house=Commons&startDate=2019-04-09&endDate=2019-04-09");
+            var expectedUri = new Uri("http://data.parliament.uk/membersdataplatform/services/mnis/members/query/house=Commons|id=579");
 
             handlerMock.Protected().Verify(
                "SendAsync",
