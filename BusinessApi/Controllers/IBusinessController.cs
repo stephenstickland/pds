@@ -9,7 +9,7 @@ namespace BusinessApiTests
 {
     public interface IBusinessController
     {
-        Task<ActionResult<BusinessItem>> Get(int id);
+        Task<ActionResult<BusinessItem>> Get(DateTime startDate, DateTime endDate, int id);
 
         Task<ActionResult<Period>> Get(DateTime startDate, DateTime endDate);
     }

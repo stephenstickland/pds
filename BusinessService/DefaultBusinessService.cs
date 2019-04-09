@@ -20,10 +20,10 @@ namespace BusinessService
             _calendarClient = calendarClient;
         }
 
-        public async Task<BusinessItem> GetItem(int id)
+        public async Task<BusinessItem> GetItem(DateTime startDate, DateTime endDate, int id)
         {
             var members = await _memberClient.GetMembers();
-            var evt = await _calendarClient.GetEvent(id);
+            var evt = await _calendarClient.GetEvent(startDate, endDate, id);
 
             var memberMap = new Dictionary<int, MemberClient.Member>();
 

@@ -24,12 +24,14 @@ namespace CalendarClient
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<Event> GetEvent(int id)
+        public async Task<Event> GetEvent(DateTime startDate, DateTime endDate, int id)
         {
             NameValueCollection query = System.Web.HttpUtility.ParseQueryString(string.Empty);
             IFormatProvider culture = new CultureInfo(CULTURE, true);
 
             query["house"] = House.Commons;
+            query["startDate"] = startDate.ToString(SHORT_DATE_FORMAT, culture);
+            query["endDate"] = endDate.ToString(SHORT_DATE_FORMAT, culture);
             query["eventId"] = id.ToString();
 
             string queryString = query.ToString();

@@ -10,6 +10,6 @@ namespace BusinessService
     {
         Task<Period> GetItemsForPeriod(DateTime startDate, DateTime endDate);
 
-        Task<BusinessItem> GetItem(int id);
+        Task<BusinessItem> GetItem(DateTime startDate, DateTime endDate, int id);
     }
 }

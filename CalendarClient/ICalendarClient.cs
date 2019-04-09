@@ -9,6 +9,6 @@ namespace CalendarClient
     {
         Task<IList<Event>> GetEvents(DateTime startDate, DateTime endDate);
 
-        Task<Event> GetEvent(int id);
+        Task<Event> GetEvent(DateTime startDate, DateTime endDate, int id);
     }
 }

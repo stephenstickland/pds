@@ -59,7 +59,7 @@ namespace BusinessApiTests
             Mock<IBusinessService> mockBusinessService = new Mock<IBusinessService>();
 
             mockBusinessService
-                .Setup(c => c.GetItem(It.IsAny<int>()))
+                .Setup(c => c.GetItem(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(new BusinessItem() { Category = "test"}));
 
             var httpContext = new DefaultHttpContext();
@@ -76,7 +76,7 @@ namespace BusinessApiTests
 
             Assert.NotNull(controller);
 
-            var okResult = await controller.Get(0);
+            var okResult = await controller.Get(DateTime.Now, DateTime.Now, 0);
 
             Assert.NotNull(okResult);
             Assert.Equal("test", okResult.Value.Category);

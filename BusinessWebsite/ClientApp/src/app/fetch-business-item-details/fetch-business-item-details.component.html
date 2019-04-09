@@ -1,0 +1,40 @@
+<h1>House of Commons</h1>
+<h2>Main Chamber Business Item</h2>
+<br/>
+
+<p *ngIf="!item"><em>Loading ...</em></p>
+
+<div class="" *ngIf="item">
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">Description</div>
+    <div class="col-xs-12 col-md-10">{{ item.description }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">Category</div>
+    <div class="col-xs-12 col-md-10">{{ item.category }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">Start Date</div>
+    <div class="col-xs-12 col-md-10">{{ item.startDate | date:'dd/MM/yyyy' }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">End Date</div>
+    <div class="col-xs-12 col-md-10">{{ item.endDate | date:'dd/MM/yyyy' }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">Start Time</div>
+    <div class="col-xs-12 col-md-10">{{ item.startTime == '' ? '-' : item.startTime }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">End Time</div>
+    <div class="col-xs-12 col-md-10">{{ item.endTime == '' ? '-' : item.endTime }}</div>
+  </div>
+  <div class="row p-3">
+    <div class="col-xs-12 col-md-2 h6">Members</div>
+    <div class="col-xs-12 col-md-10">
+      <span *ngFor="let member of item.applicableMembers">{{ member.fullTitle }} the member for {{ member.memberFrom }} ({{ member.party }})</span>
+    </div>
+  </div>
+</div>
+
+

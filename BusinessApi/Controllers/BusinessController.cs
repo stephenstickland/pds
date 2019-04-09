@@ -24,15 +24,15 @@ namespace BusinessApi.Controllers
             _service = service;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BusinessItem>> Get(int id)
+        [HttpGet("period/{startDate}/{endDate}/{id}")]
+        public async Task<ActionResult<BusinessItem>> Get(DateTime startDate, DateTime endDate, int id)
         {
             BusinessItem cachedObject = (BusinessItem)_cache.Get(Request.Path);
             if (cachedObject == null)
             {
                 CacheItemPolicy policy = new CacheItemPolicy();
                 policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(7);
-                cachedObject = await _service.GetItem(id);
+                cachedObject = await _service.GetItem(startDate, endDate, id);
                 _cache.Set(Request.Path, cachedObject);
             }
             return cachedObject;           
