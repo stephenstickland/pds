@@ -19,3 +19,9 @@
 /BusinessApi/bin/Debug/netcoreapp2.2
 /BusinessApiTests/bin/Debug/netcoreapp2.2
 /BusinessApiTests/obj
+/BusinessApi/bin/Release/netcoreapp2.2
+/CalendarClient/bin/Release/netstandard2.0
+/MemberClient/bin/Release/netstandard2.0
+/BusinessService/bin/Release/netstandard2.0
+/BusinessApi/Properties/PublishProfiles/pdsprod-app-api - Web Deploy.pubxml.user
+/BusinessApi/Properties/PublishProfiles
