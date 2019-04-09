@@ -24,8 +24,10 @@ namespace BusinessService
         public async Task<Week> GetWeek(DateTime startDate)
         {
             DateTime weekEnd = startDate.AddDays(DAYS_IN_WEEK);
+
             var members = await _memberClient.GetMembers();
             var events = await _calendarClient.GetEvents(startDate, weekEnd);
+
             var memberMap = new Dictionary<int, MemberClient.Member>();
 
             foreach (var member in members)
