@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessService;
+using CalendarClient;
+using MemberClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +37,13 @@ namespace BusinessApi
 
             services
                 .AddHttpClient();
+
+            services
+                .AddTransient<IBusinessService, DefaultBusinessService>();
+            services
+                .AddTransient<IMemberClient, HttpMemberClient>();
+            services
+                .AddTransient<ICalendarClient, HttpCalendarClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
