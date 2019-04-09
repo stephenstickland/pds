@@ -20,6 +20,8 @@ namespace BusinessService.Domain
 
         public string EndTime { get; set; }
 
+        public int SortOrder { get; set; }
+
         public List<Member> ApplicableMembers { get; set; }
     }
 }

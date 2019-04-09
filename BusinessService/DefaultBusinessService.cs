@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessService.Domain;
 using CalendarClient;
@@ -95,9 +96,15 @@ namespace BusinessService
                     StartTime = evt.StartTime,
                     EndDate = evt.EndDate,
                     EndTime = evt.EndTime,
+                    SortOrder = evt.SortOrder,
                     ApplicableMembers = applicableMembers
                 });
             }
+
+            period.BusinessItems = period.BusinessItems
+                .OrderBy(x => x.StartDate)
+                .ThenBy(x => x.SortOrder)
+                .ToList();
 
             return period;
         }
