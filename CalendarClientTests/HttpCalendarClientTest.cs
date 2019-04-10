@@ -89,7 +89,7 @@ namespace CalendarClientTests
 
             // ACT
             var result = await client
-               .GetEvents(DateTime.Now,DateTime.Now);
+               .GetEvents(DateTime.Parse("2019-04-09"), DateTime.Parse("2019-04-09"));
 
             // ASSERT
             Assert.NotNull(result);
