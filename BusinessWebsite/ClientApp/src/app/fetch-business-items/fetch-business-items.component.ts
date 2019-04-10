@@ -56,7 +56,7 @@ export class FetchBusinessItemsComponent {
       this.setState();
   }
 
-  updateState(route, baseUrl, http){
+  updateState(route: ActivatedRoute, baseUrl:string, http: HttpClient){
       this.startDate = route.snapshot.paramMap.get("startDate");
       this.endDate = route.snapshot.paramMap.get("endDate");
       http.get<Period>(baseUrl + `api/business/period/${this.startDate}/${this.endDate}`).subscribe(result => {
