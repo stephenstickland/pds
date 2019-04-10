@@ -6,14 +6,16 @@ import { FetchBusinessItemDetailsComponent } from './fetch-business-item-details
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'business', component: FetchBusinessItemsComponent },
-  { path: 'business/:id', component: FetchBusinessItemDetailsComponent }
+  { path: 'business/period', component: FetchBusinessItemsComponent, runGuardsAndResolvers: 'always' },
+  { path: 'business/period/:startDate/:endDate', component: FetchBusinessItemsComponent, runGuardsAndResolvers: 'always' },
+  { path: 'business/item/:startDate/:endDate/:id', component: FetchBusinessItemDetailsComponent, runGuardsAndResolvers: 'always' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled'
+      anchorScrolling: 'enabled',
+      onSameUrlNavigation: 'reload'
   })],
   exports: [RouterModule]
 })

@@ -1,8 +1,15 @@
 <h1>House of Commons</h1>
 <h2>Main Chamber</h2>
-<br/>
+<h3>Week commencing {{startDate}}</h3>
+<br />
 
 <p *ngIf="!period"><em>Loading ...</em></p>
+
+<a routerLink="/business/period/{{lastStartDate}}/{{lastEndDate}}">Last Week</a>
+&nbsp;|&nbsp;
+<a routerLink="/business/period/{{actualStartDate}}/{{actualEndDate}}">Current Week</a>
+&nbsp;|&nbsp;
+<a routerLink="/business/period/{{nextStartDate}}/{{nextEndDate}}">Next Week</a>
 
 <div class="" *ngIf="period">
   <div class="row p-3 d-none d-md-flex ">
@@ -16,7 +23,7 @@
     <div class="col-xs-12 col-md-2 h6">{{ item.startDate | date:'dd/MM/yyyy' }} {{ item.startTime == '' ? '' : item.startTime }}</div>
     <div class="col-xs-12 col-md-2 h6">{{ item.endDate | date:'dd/MM/yyyy' }} {{ item.endTime == '' ? '' : item.endTime }}</div>
     <div class="col-xs-12 col-md-1 h6">{{ item.startDate | date:'EE' }}</div>
-    <div class="col-xs-12 col-md-3"><a routerLink="/business/{{item.id}}">{{ item.category }}</a></div>
+    <div class="col-xs-12 col-md-3"><a routerLink="/business/item/{{startDate}}/{{endDate}}/{{item.id}}">{{ item.category }}</a></div>
     <div class="col-xs-12 col-md-4">{{ item.description }}</div>
   </div>
 </div>

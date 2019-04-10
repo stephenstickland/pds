@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-fetch-business-item-details',
@@ -13,8 +13,10 @@ export class FetchBusinessItemDetailsComponent {
   constructor(route: ActivatedRoute, http: HttpClient, @Inject('API_URL') baseUrl: string) {
 
     this.id = route.snapshot.paramMap.get("id")
+    this.startDate = route.snapshot.paramMap.get("startDate");
+    this.endDate = route.snapshot.paramMap.get("endDate");
 
-    http.get<BusinessItem>(baseUrl + 'api/business/period/2019-04-09/2019-04-16/' + this.id).subscribe(result => {
+    http.get<BusinessItem>(baseUrl + `api/business/period/${this.startDate}/${this.endDate}/${this.id}`).subscribe(result => {
       this.item = result;
     }, error => console.error(error));
   }
