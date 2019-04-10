@@ -9,7 +9,7 @@ import * as moment from 'moment';
 })
 export class FetchBusinessItemsComponent {
   public period: Period;
-  public 
+
   public startDate: any;
   public endDate: any;
   public actualStartDate: any;
@@ -25,65 +25,44 @@ export class FetchBusinessItemsComponent {
 
     route.params.subscribe((params = {}) => {
       if(startDateParam === null){
-
-        const today = moment();
-        this.startDate = today.startOf('week').format("YYYY-MM-DD");
-        this.endDate = today.endOf('week').format("YYYY-MM-DD");
-
-        this.lastStartDate = moment(this.startDate).add(-7, 'days').format("YYYY-MM-DD");
-        this.lastEndDate = moment(this.startDate).add(-1, 'days').format("YYYY-MM-DD");
-
-        this.nextStartDate = moment(this.endDate).add(1, 'days').format("YYYY-MM-DD");
-        this.nextEndDate = moment(this.endDate).add(7, 'days').format("YYYY-MM-DD");
-
+        this.initState();
+        router.navigateByUrl(`/business/period/${this.startDate}/${this.endDate}`)
       } else {
-
-        this.startDate = route.snapshot.paramMap.get("startDate");
-        this.endDate = route.snapshot.paramMap.get("endDate");
-
-        http.get<Period>(baseUrl + `api/business/period/${this.startDate}/${this.endDate}`).subscribe(result => {
-          this.period = result;
-        }, error => console.error(error));
-
-        this.lastStartDate = moment(this.startDate).add(-7, 'days').format("YYYY-MM-DD");
-        this.lastEndDate = moment(this.startDate).add(-1, 'days').format("YYYY-MM-DD");
-
-        this.nextStartDate = moment(this.endDate).add(1, 'days').format("YYYY-MM-DD");
-        this.nextEndDate = moment(this.endDate).add(7, 'days').format("YYYY-MM-DD");
+        this.updateState(route, baseUrl, http);
       }
     });
 
     if(startDateParam === null){
+      this.initState();
+      router.navigateByUrl(`/business/period/${this.startDate}/${this.endDate}`)
+    } else {
+      this.updateState(route, baseUrl, http);
+    }
+  }
 
+  setState(){
+      this.lastStartDate = moment(this.startDate).add(-7, 'days').format("YYYY-MM-DD");
+      this.lastEndDate = moment(this.startDate).add(-1, 'days').format("YYYY-MM-DD");
+      this.nextStartDate = moment(this.endDate).add(1, 'days').format("YYYY-MM-DD");
+      this.nextEndDate = moment(this.endDate).add(7, 'days').format("YYYY-MM-DD");
+  }
+
+  initState(){
       const today = moment();
       this.startDate = today.startOf('week').format("YYYY-MM-DD");
       this.endDate = today.endOf('week').format("YYYY-MM-DD");
       this.actualStartDate = today.startOf('week').format("YYYY-MM-DD");
       this.actualEndDate = today.endOf('week').format("YYYY-MM-DD");
+      this.setState();
+  }
 
-      this.lastStartDate = moment(this.startDate).add(-7, 'days').format("YYYY-MM-DD");
-      this.lastEndDate = moment(this.startDate).add(-1, 'days').format("YYYY-MM-DD");
-
-      this.nextStartDate = moment(this.endDate).add(1, 'days').format("YYYY-MM-DD");
-      this.nextEndDate = moment(this.endDate).add(7, 'days').format("YYYY-MM-DD");
-
-      router.navigateByUrl(`/business/period/${this.startDate}/${this.endDate}`)
-
-    } else {
-
+  updateState(route, baseUrl, http){
       this.startDate = route.snapshot.paramMap.get("startDate");
       this.endDate = route.snapshot.paramMap.get("endDate");
-
       http.get<Period>(baseUrl + `api/business/period/${this.startDate}/${this.endDate}`).subscribe(result => {
         this.period = result;
       }, error => console.error(error));
-
-      this.lastStartDate = moment(this.startDate).add(-7, 'days').format("YYYY-MM-DD");
-      this.lastEndDate = moment(this.startDate).add(-1, 'days').format("YYYY-MM-DD");
-
-      this.nextStartDate = moment(this.endDate).add(1, 'days').format("YYYY-MM-DD");
-      this.nextEndDate = moment(this.endDate).add(7, 'days').format("YYYY-MM-DD");
-    }
+      this.setState();
   }
 }
 

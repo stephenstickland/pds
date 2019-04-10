@@ -1,6 +1,5 @@
 <h1>House of Commons</h1>
 <h2>Main Chamber</h2>
-<h3>Week commencing {{startDate}}</h3>
 <br />
 
 <p *ngIf="!period"><em>Loading ...</em></p>
@@ -13,18 +12,18 @@
 
 <div class="" *ngIf="period">
   <div class="row p-3 d-none d-md-flex ">
-    <div class="col-xs-12 col-md-2 h5">Start</div>
-    <div class="col-xs-12 col-md-2 h5">End</div>
-    <div class="col-xs-6 col-md-1 h5">Day</div>
     <div class="col-xs-12 col-md-3 h5">Category</div>
     <div class="col-xs-12 col-md-4 h5">Business</div>
+    <div class="col-xs-6 col-md-1 h5">Day</div>
+    <div class="col-xs-12 col-md-2 h5">Start</div>
+    <div class="col-xs-12 col-md-2 h5">End</div>
   </div>
   <div class="row p-3" *ngFor="let item of period.businessItems">
-    <div class="col-xs-12 col-md-2 h6">{{ item.startDate | date:'dd/MM/yyyy' }} {{ item.startTime == '' ? '' : item.startTime }}</div>
-    <div class="col-xs-12 col-md-2 h6">{{ item.endDate | date:'dd/MM/yyyy' }} {{ item.endTime == '' ? '' : item.endTime }}</div>
-    <div class="col-xs-12 col-md-1 h6">{{ item.startDate | date:'EE' }}</div>
     <div class="col-xs-12 col-md-3"><a routerLink="/business/item/{{startDate}}/{{endDate}}/{{item.id}}">{{ item.category }}</a></div>
     <div class="col-xs-12 col-md-4">{{ item.description }}</div>
+    <div class="col-xs-12 col-md-1 h6">{{ item.startDate | date:'EE' }}</div>
+    <div class="col-xs-12 col-md-2 h6">{{ item.startDate | date:'dd/MM/yyyy' }} {{ item.startTime == '' ? '' : item.startTime }}</div>
+    <div class="col-xs-12 col-md-2 h6">{{ item.endDate | date:'dd/MM/yyyy' }} {{ item.endTime == '' ? '' : item.endTime }}</div>
   </div>
 </div>
 
