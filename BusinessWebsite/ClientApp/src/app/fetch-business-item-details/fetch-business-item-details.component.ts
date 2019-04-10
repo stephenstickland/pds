@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class FetchBusinessItemDetailsComponent {
   public item: BusinessItem;
   public id: string;
+  public startDate: any;
+  public endDate: any;
 
   constructor(route: ActivatedRoute, http: HttpClient, @Inject('API_URL') baseUrl: string) {
 
